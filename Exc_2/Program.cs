@@ -1,38 +1,40 @@
-﻿///Задайте массив заполненный случайными положительными трёхзначными числами. 
-//Напишите программу, которая покажет количество чётных чисел в массиве.
+﻿//Задайте одномерный массив, заполненный случайными числами. Найдите сумму элементов, стоящих на нечётных индексах.
 
 //Тело программы
 
-Console.WriteLine($"Четных чисел в масисве: {Search_Even_Numbers(Fill_Random_Array(100, 1000))}");
+int[] local_array = GenRandomArray(0, 11); //создал отдельный массив что бы не вызывать метод генерации массива несколько раз
 
-//Методы
-int[] Fill_Random_Array(int min, int max)
+string out_array = string.Join(", ", local_array);
+
+Console.WriteLine($"[{out_array}]");
+Console.WriteLine($"Сумма элементов с нечетными индексами = {SumEvenNumbers(local_array)}");
+
+//методы
+
+int[] GenRandomArray(int min, int max)
 {
+    int[] array = new int [6];
     Random rand = new Random();
-    int[] array = new int[10];
 
     for(int i = 0; i < array.Length; i++)
     {
         array[i] = rand.Next(min, max);
     }
 
-    string print_array = string.Join(", ", array);
-    Console.WriteLine($"[{print_array}]");
-
     return array;
 }
 
-int Search_Even_Numbers(int[] array)
+int SumEvenNumbers(int[] array)
 {
-    int count = 0;
+    int sum = 0;
 
     for(int i = 0; i < array.Length; i++)
     {
-        if(array[i] % 2 == 0)
+        if(i % 2 != 0)
         {
-            count++;
+            sum = sum + array[i];
         }
     }
 
-    return count;
+    return sum;
 }
